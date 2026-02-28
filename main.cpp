@@ -1,3 +1,5 @@
+//Hi!
+
 // ============================================================
 //  main.cpp  –  Entry point, config parsing, adapter selector
 //  Zero-Latency Network Video Fuser
@@ -70,8 +72,8 @@ static FuserConfig LoadConfig(const std::string& iniPath)
 
     std::string mode  = FuserUtil::ReadIniString(iniPath, "Fuser", "Mode", "receiver");
     cfg.isSender      = (mode == "sender");
-    cfg.localIP       = FuserUtil::ReadIniString(iniPath, "Fuser", "LocalIP",    "0.0.0.0");
-    cfg.remoteIP      = FuserUtil::ReadIniString(iniPath, "Fuser", "RemoteIP",   "192.168.50.1");
+    cfg.localIP       = FuserUtil::ReadIniString(iniPath, "Fuser", "LocalIP",    "0.0.0.0"); //
+    cfg.remoteIP      = FuserUtil::ReadIniString(iniPath, "Fuser", "RemoteIP",   "192.168.50.1"); //
     cfg.port          = static_cast<uint16_t>(
                             FuserUtil::ReadIniInt(iniPath, "Fuser", "Port",
                                                   static_cast<int>(FUSER_PORT)));
