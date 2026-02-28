@@ -1,0 +1,22 @@
+.vs/
+*.user
+*.ncb
+*.suo
+*.sln.docstates
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.cache
+*.obj
+*.tlog
+*.log
+*.idb
+*.ipch
+
+# Build folders
+x64/
+Debug/
+Release/
+Logs/
+imgui.ini

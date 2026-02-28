@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- ─── Project Configurations ─────────────────────────── -->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <!-- ─── Globals ─────────────────────────────────────────── -->
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <RootNamespace>KnoxFuser</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+
+  <!-- ─── Release Configuration ───────────────────────────── -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+
+  <!-- ─── Debug Configuration ─────────────────────────────── -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+
+  <!-- ─── Release compiler / linker flags ─────────────────── -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <!-- C++17, static CRT (/MT), max optimisation -->
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>           <!-- /MT  – static CRT -->
+      <Optimization>Full</Optimization>                        <!-- /O2  -->
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>               <!-- /Ot  -->
+      <IntrinsicFunctions>true</IntrinsicFunctions>            <!-- /Oi  -->
+      <WholeProgramOptimization>true</WholeProgramOptimization><!-- /GL  -->
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Sync</ExceptionHandling>              <!-- /EHsc -->
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <!-- Disable annoying warnings from Windows headers -->
+      <DisableSpecificWarnings>4996;4267;4244</DisableSpecificWarnings>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <!-- Subsystem: Windows (no console window shown to users in release) -->
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <!-- Static-link the CRT so no MSVCRT DLL dependency -->
+      <AdditionalDependencies>
+        kernel32.lib;user32.lib;gdi32.lib;uxtheme.lib;comctl32.lib;
+        ws2_32.lib;iphlpapi.lib;
+        d3d11.lib;dxgi.lib;%(AdditionalDependencies)
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- ─── Debug compiler / linker flags ────────────────────── -->
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>      <!-- /MTd – static debug CRT -->
+      <Optimization>Disabled</Optimization>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;4267;4244</DisableSpecificWarnings>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>           <!-- Console in debug for easy log reading -->
+      <AdditionalDependencies>
+        kernel32.lib;user32.lib;gdi32.lib;uxtheme.lib;comctl32.lib;
+        ws2_32.lib;iphlpapi.lib;
+        d3d11.lib;dxgi.lib;%(AdditionalDependencies)
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- ─── Source files ─────────────────────────────────────── -->
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ConfigUI.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Sender.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="MemoryReassembly.cpp" />
+  </ItemGroup>
+
+  <!-- ─── Header files ─────────────────────────────────────── -->
+  <ItemGroup>
+    <ClInclude Include="NetworkFuser.h" />
+    <ClInclude Include="ConfigUI.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Sender.h" />
+    <ClInclude Include="Receiver.h" />
+    <ClInclude Include="MemoryReassembly.h" />
+  </ItemGroup>
+
+  <!-- ─── Misc ─────────────────────────────────────────────── -->
+  <ItemGroup>
+    <None Include="config.ini" />
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
